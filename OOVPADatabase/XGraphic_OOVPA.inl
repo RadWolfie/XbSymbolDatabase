@@ -23,6 +23,9 @@
 // *
 // ******************************************************************
 
+// TODO: Library table below need a clean list. Should only list a full library
+//   or at least have all of symbols detected. Plus using two titles with same
+//   version to make a full library inspected are better than nothing.
 // Titles which did compiled with full library
 //   [LibV] Title Name                       |  Verify   |  Comments
 //-------------------------------------------------------------------
@@ -64,6 +67,80 @@
 // * Need to move OOVPAs does not belong in 3911 to their specific version.
 // NOTE: Known Xgraphics OOVPA not included in initial revision.
 //   * XFONT_OpenBitmapFontFromMemory (4361)
+// * List of known Symbols (3911)
+//   * XGBuffer_AddRef
+//   * XGBuffer_GetBufferPointer
+//   * XGBuffer_GetBufferSize
+//   * XGBuffer_Release
+//   * XGBytesPerPixelFromFormat
+//   * XGCompileDrawIndexedVertices
+//   * XGMatrixAffineTransformation
+//   * XGMatrixfDeterminant
+//   * XGMatrixInverse
+//   * XGMatrixLookAtLH
+//   * XGMatrixLookAtRH
+//   * XGMatrixMultiply
+//   * XGMatrixOrthoLH
+//   * XGMatrixOrthoOffCenterLH
+//   * XGMatrixOrthoOffCenterRH
+//   * XGMatrixOrthoRH
+//   * XGMatrixPerspectiveFovLH
+//   * XGMatrixPerspectiveFovRH
+//   * XGMatrixPerspectiveLH
+//   * XGMatrixPerspectiveOffCenterLH
+//   * XGMatrixPerspectiveOffCenterRH
+//   * XGMatrixPerspectiveRH
+//   * XGMatrixReflect
+//   * XGMatrixRotationAxis
+//   * XGMatrixRotationQuaternion
+//   * XGMatrixRotationX
+//   * XGMatrixRotationY
+//   * XGMatrixRotationYawPitchRoll
+//   * XGMatrixRotationZ
+//   * XGMatrixScaling
+//   * XGMatrixShadow
+//   * XGMatrixTransformation
+//   * XGMatrixTranslation
+//   * XGMatrixTranspose
+//   * XGOptimizeVertexShader
+//   * XGQuaternionBaryCentric
+//   * XGQuaternionExp
+//   * XGQuaternionInverse
+//   * XGQuaternionLn
+//   * XGQuaternionMultiply
+//   * XGQuaternionNormalize
+//   * XGQuaternionRotationAxis
+//   * XGQuaternionRotationMatrix
+//   * XGQuaternionRotationYawPitchRoll
+//   * XGQuaternionSlerp
+//   * XGQuaternionSquad
+//   * XGQuaternionToAxisAngle
+//   * XGraphicsBuildVersion (has variable reference for build version)
+//   * XGSpliceVertexShaders
+//   * XGSUCode_CompareVertexShaders
+//   * XGSUCode_GetVertexShaderLength
+//   * XGSUCode_GetVertexShaderType
+//   * XGVec2BaryCentric
+//   * XGVec2CatmullRom
+//   * XGVec2Hermite
+//   * XGVec2Normalize
+//   * XGVec2Transform
+//   * XGVec2TransformCoord
+//   * XGVec2TransformNormal
+//   * XGVec3BaryCentric
+//   * XGVec3Hermite
+//   * XGVec3Normalize
+//   * XGVec3Project
+//   * XGVec3Transform
+//   * XGVec3TransformCoord
+//   * XGVec3TransformNormal
+//   * XGVec3Unproject
+//   * XGVec4BaryCentric
+//   * XGVec4CatmullRom
+//   * XGVec4Cross
+//   * XGVec4Hermite
+//   * XGVec4Normalize
+//   * XGVec4Transform
 
 #ifndef XGRAPHC_OOVPA_INL
 #define XGRAPHC_OOVPA_INL
