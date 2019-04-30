@@ -235,3 +235,464 @@ OOVPA_NO_XREF(XGSetVertexBufferHeader, 3911, 13)
         // XGSetVertexBufferHeader+0x11 : ret 0x0018
         OV_MATCH(0x11, 0xC2, 0x18),
 OOVPA_END;
+
+// ******************************************************************
+// * DisassembleVertexShader
+// ******************************************************************
+OOVPA_NO_XREF(DisassembleVertexShader, 3911, 11)
+
+        // DisassembleVertexShader+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // DisassembleVertexShader+0x03 : sub esp,0x________
+        OV_MATCH(0x03, 0x81, 0xEC),
+
+        // DisassembleVertexShader+0x3C : cmp eax,0x00007778
+        OV_MATCH(0x3C, 0x3D, 0x78, 0x77, 0x00),
+
+        OV_MATCH(0x46, 0x02, 0x00),
+
+        OV_MATCH(0x4F, 0x03, 0x00),
+OOVPA_END;
+
+// ******************************************************************
+// * DisassembleVertexShader
+// ******************************************************************
+// Generic OOVPA as of ____? and newer.
+OOVPA_NO_XREF(DisassembleVertexShader, 4039, 11)
+
+        // DisassembleVertexShader+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // DisassembleVertexShader+0x03 : sub esp,0x________
+        OV_MATCH(0x03, 0x81, 0xEC),
+
+        // DisassembleVertexShader+0x3B : cmp eax,0x00007778
+        OV_MATCH(0x3B, 0x3D, 0x78, 0x77, 0x00),
+
+        OV_MATCH(0x45, 0x02, 0x00),
+
+        OV_MATCH(0x4E, 0x03, 0x00),
+OOVPA_END;
+
+// ******************************************************************
+// * SupportsSSE
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(SupportsSSE, 3911, 12)
+
+        // SupportsSSE+0x00 : push 0x0C
+        OV_MATCH(0x00, 0x6A, 0x0C),
+
+        // SupportsSSE+0x12 : cpuid; or [ebp-0x04],0xFFFFFFFF
+        OV_MATCH(0x10, 0x0F, 0xA2, 0x83, 0x4D, 0xFC, 0xFF),
+
+        // SupportsSSE+0x3B : cpuid
+        OV_MATCH(0x1B, 0x0F, 0xA2),
+
+        // SupportsSSE+0x32 : ret
+        OV_MATCH(0x32, 0xC3),
+
+        // SupportsSSE+0x41 : ret
+        OV_MATCH(0x41, 0xC3),
+OOVPA_END;
+
+// ******************************************************************
+// * XGAssembleShader
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGAssembleShader, 3911, 13)
+
+        // XGAssembleShader+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // XGAssembleShader+0x03 : sub esp, 0x10
+        OV_MATCH(0x03, 0x83, 0xEC, 0x10),
+
+        OV_MATCH(0x0E, 0x2C),
+        OV_MATCH(0x11, 0x28),
+        OV_MATCH(0x14, 0x24),
+        OV_MATCH(0x23, 0x10),
+        OV_MATCH(0x26, 0x0C),
+        OV_MATCH(0x29, 0x08),
+
+        OV_MATCH(0x2B, 0xE8),
+
+        // XGAssembleShader+0x31 : ret 0x002C
+        OV_MATCH(0x31, 0xC2, 0x2C),
+OOVPA_END;
+
+// ******************************************************************
+// * XGBufferCreate
+// ******************************************************************
+OOVPA_NO_XREF(XGBufferCreate, 3911, 11)
+
+        // XGBufferCreate+0x00 : push esi
+        OV_MATCH(0x00, 0x56),
+
+        // XGBufferCreate+0x15 : mov [esi],1
+        OV_MATCH(0x15, 0xC7, 0x06, 0x01, 0x00),
+
+        OV_MATCH(0x24, 0x7E, 0x08),
+
+        OV_MATCH(0x27, 0x46, 0x04),
+
+        // XGBufferCreate+0x43 : ret 0x0008
+        OV_MATCH(0x43, 0xC2, 0x08),
+OOVPA_END;
+
+// ******************************************************************
+// * XGBufferCreate
+// ******************************************************************
+// Generic OOVPA as of ____? and newer.
+OOVPA_NO_XREF(XGBufferCreate, 5455, 11)
+
+        // XGBufferCreate+0x00 : push ebx
+        OV_MATCH(0x00, 0x53),
+
+        // XGBufferCreate+0x2B : mov [esi],1
+        OV_MATCH(0x2B, 0xC7, 0x06, 0x01, 0x00),
+
+        OV_MATCH(0x39, 0x46, 0x04),
+
+        OV_MATCH(0x3C, 0x7E, 0x08),
+
+        // XGBufferCreate+0x59 : ret 0x0008
+        OV_MATCH(0x59, 0xC2, 0x08),
+OOVPA_END;
+
+// ******************************************************************
+// * XGColorAdjustContrast
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGColorAdjustContrast, 3911, 11)
+
+        // XGColorAdjustContrast+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // XGColorAdjustContrast+0x06 : fld [0x________]
+        OV_MATCH(0x06, 0xD9, 0x05),
+
+        // XGColorAdjustContrast+0x0C : fld [ecx]
+        OV_MATCH(0x0C, 0xD9, 0x01),
+
+        OV_MATCH(0x36, 0x0C),
+
+        OV_MATCH(0x39, 0x0C),
+
+        // XGColorAdjustContrast+0x3A : fstp st(0)
+        OV_MATCH(0x3A, 0xDD, 0xD8),
+
+        // XGColorAdjustContrast+0x3D : ret 0x000C
+        OV_MATCH(0x3D, 0xC2, 0x0C),
+OOVPA_END;
+
+// ******************************************************************
+// * XGColorAdjustSaturation
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGColorAdjustSaturation, 3911, 9)
+
+        // XGColorAdjustSaturation+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // XGColorAdjustSaturation+0x0C : fld [ecx]
+        OV_MATCH(0x06, 0xD9, 0x01),
+
+        OV_MATCH(0x4E, 0x0C),
+
+        OV_MATCH(0x51, 0x0C),
+
+        // XGColorAdjustSaturation+0x52 : fstp st(0)
+        OV_MATCH(0x52, 0xDD, 0xD8),
+
+        // XGColorAdjustSaturation+0x55 : ret 0x000C
+        OV_MATCH(0x55, 0xC2, 0x0C),
+OOVPA_END;
+
+// ******************************************************************
+// * XGPlaneFromPointNormal
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGPlaneFromPointNormal, 3911, 10)
+
+        // XGPlaneFromPointNormal+0x00 : mov eax,[esp+0x0C]
+        OV_MATCH(0x00, 0x8B, 0x44),
+
+        // XGPlaneFromPointNormal+0x0B : fld [esi]
+        OV_MATCH(0x0B, 0xD9, 0x1E),
+
+        OV_MATCH(0x1A, 0x08),
+
+        OV_MATCH(0x1D, 0x08),
+
+        // XGPlaneFromPointNormal+0x23 : fchs
+        OV_MATCH(0x23, 0xD9, 0xE0),
+
+        // XGPlaneFromPointNormal+0x2B : ret 0x000C
+        OV_MATCH(0x2B, 0xC2, 0x0C),
+OOVPA_END;
+
+// ******************************************************************
+// * XGPlaneFromPoints
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGPlaneFromPoints, 3911, 10)
+
+        // XGPlaneFromPoints+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // XGPlaneFromPoints+0x0D : fld [esi]
+        OV_MATCH(0x0D, 0xD9, 0x06),
+
+        // XGPlaneFromPoints+0x10 : fsub [eax]
+        OV_MATCH(0x10, 0xD8, 0x20),
+
+        // XGPlaneFromPoints+0x27 : fstp [ebp-0x14]
+        OV_MATCH(0x27, 0x8B, 0x45, 0x14),
+
+        // XGPlaneFromPoints+0x6C : ret 0x0010
+        OV_MATCH(0x6C, 0xC2, 0x10),
+OOVPA_END;
+
+// ******************************************************************
+// * XGPlaneIntersectLine
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGPlaneIntersectLine, 3911, 9)
+
+        // XGPlaneIntersectLine+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // XGPlaneIntersectLine+0x0F : fstp [ebp-4]
+        OV_MATCH(0x0F, 0xD9, 0x5D, 0xFC),
+
+        // XGPlaneIntersectLine+0x1D : fsubr [ebp-4]
+        OV_MATCH(0x1D, 0xD8, 0x6D, 0xFC),
+
+        // XGPlaneIntersectLine+0x1D : fcomp [________]
+        OV_MATCH(0x23, 0xD8, 0x1D),
+
+        // Offset 0x29 and later are different.
+OOVPA_END;
+
+// ******************************************************************
+// * XGPlaneNormalize
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGPlaneNormalize, 3911, 9)
+
+        // XGPlaneNormalize+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // XGPlaneNormalize+0x0F : [edi],[esi] x4
+        OV_MATCH(0x49, 0xA5, 0xA5, 0xA5, 0xA5),
+
+        // XGPlaneNormalize+0x66 : fsqrt
+        OV_MATCH(0x66, 0xD9, 0xFA),
+
+        // XGPlaneNormalize+0x9E : ret 0x0008
+        OV_MATCH(0x9E, 0xC2, 0x08),
+
+OOVPA_END;
+
+// ******************************************************************
+// * XGPlaneTransform
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGPlaneTransform, 3911, 11)
+
+        // XGPlaneTransform+0x00 : push ebp, mov ebp,esp
+        OV_MATCH(0x00, 0x55, 0x8B, 0xEC),
+
+        // XGPlaneTransform+0x0C : sub esp,0x1C
+        OV_MATCH(0x03, 0x83, 0xEC, 0x1C),
+
+        // XGPlaneTransform+0x1C : lea eax,[ebp-0x0C]
+        OV_MATCH(0x1C, 0x8D, 0x45, 0xF4),
+
+        // XGPlaneTransform+0x20 : fchs
+        OV_MATCH(0x20, 0xD9, 0xE0),
+
+        // Offset 0x22 and later are different.
+OOVPA_END;
+
+// ******************************************************************
+// * XGSetCubeTextureHeader
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGSetCubeTextureHeader, 3911, 10)
+
+        // XGSetCubeTextureHeader+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        OV_MATCH(0x05, 0x1C),
+
+        OV_MATCH(0x08, 0x20),
+
+        // XGSetCubeTextureHeader+0x09 : push 0x00, push 0x01
+        OV_MATCH(0x09, 0x6A, 0x00, 0x6A, 0x01),
+
+        // XGSetCubeTextureHeader+0x27 : ret 0x0020
+        OV_MATCH(0x27, 0xC2, 0x20, 0x00),
+OOVPA_END;
+
+// ******************************************************************
+// * XGSetFixupHeader
+// ******************************************************************
+OOVPA_NO_XREF(XGSetFixupHeader, 3911, 12)
+
+        // XGSetFixupHeader+0x00 : mov eax, [esp+0x08]
+        OV_MATCH(0x00, 0x8B, 0x44),
+
+        OV_MATCH(0x07, 0x0C),
+
+        OV_MATCH(0x0E, 0x04),
+
+        // XGSetFixupHeader+0x0F : mov [eax], 0x00060001
+        OV_MATCH(0x0F, 0xC7, 0x00, 0x01, 0x00, 0x06, 0x00),
+
+        // XGSetFixupHeader+0x18 : ret 0x000C
+        OV_MATCH(0x18, 0xC2, 0x0C),
+OOVPA_END;
+
+// ******************************************************************
+// * XGSetFixupHeader
+// ******************************************************************
+// Generic OOVPA as of ____? and newer.
+// Lowest found is NFL Blitz 2002 (4242)
+OOVPA_NO_XREF(XGSetFixupHeader, 4242, 12)
+
+        // XGSetFixupHeader+0x00 : mov eax, [esp+0x08]
+        OV_MATCH(0x00, 0x8B, 0x44),
+
+        OV_MATCH(0x07, 0x0C),
+
+        OV_MATCH(0x0E, 0x04),
+
+        // XGSetFixupHeader+0x0F : mov [eax], 0x00060001
+        OV_MATCH(0x13, 0xC7, 0x00, 0x01, 0x00, 0x06, 0x00),
+
+        // XGSetFixupHeader+0x1C : ret 0x000C
+        OV_MATCH(0x1C, 0xC2, 0x0C),
+OOVPA_END;
+
+// ******************************************************************
+// * XGSetPaletteHeader
+// ******************************************************************
+OOVPA_NO_XREF(XGSetPaletteHeader, 3911, 13)
+
+        // XGSetPaletteHeader+0x00 : mov ecx, [esp+0x08], 0
+        OV_MATCH(0x00, 0x8B, 0x4C),
+
+        // XGSetPaletteHeader+0x08 : shl ecx, 0x1E
+        OV_MATCH(0x08, 0xC1, 0xE1, 0x1E),
+
+        // XGSetPaletteHeader+0x0B : or ecx, 0x00030001
+        OV_MATCH(0x0B, 0x81, 0xC9, 0x01, 0x00, 0x03, 0x00),
+
+        // XGSetPaletteHeader+0x1A : ret 0x000C
+        OV_MATCH(0x1A, 0xC2, 0x0C),
+OOVPA_END;
+
+// ******************************************************************
+// * XGSetPaletteHeader
+// ******************************************************************
+// Generic OOVPA as of ____? and newer.
+// Lowest found is NFL Blitz 2002 (4242)
+OOVPA_NO_XREF(XGSetPaletteHeader, 4242, 13)
+
+        // XGSetPaletteHeader+0x00 : mov ecx, [esp+0x08], 0
+        OV_MATCH(0x00, 0x8B, 0x4C),
+
+        // XGSetPaletteHeader+0x0C : shl ecx, 0x1E
+        OV_MATCH(0x0C, 0xC1, 0xE1, 0x1E),
+
+        // XGSetPaletteHeader+0x0F : or ecx, 0x00030001
+        OV_MATCH(0x0F, 0x81, 0xC9, 0x01, 0x00, 0x03, 0x00),
+
+        // XGSetPaletteHeader+0x1E : ret 0x000C
+        OV_MATCH(0x1E, 0xC2, 0x0C),
+OOVPA_END;
+
+// ******************************************************************
+// * XGSetPushBufferHeader
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGSetPushBufferHeader, 3911, 12)
+
+        // XGSetPushBufferHeader+0x00 : cmp eax, [esp+0x08], 0
+        OV_MATCH(0x00, 0x83, 0x7C),
+
+        OV_MATCH(0x08, 0x0C),
+
+        // XGSetPushBufferHeader+0x09 : mov [eax], 0x80020001
+        OV_MATCH(0x09, 0xC7),
+        OV_MATCH(0x0B, 0x01),
+        OV_MATCH(0x0D, 0x02),
+
+        // XGSetPushBufferHeader+0x11 : mov [eax], 0x80020001
+        OV_MATCH(0x11, 0xC7, 0x00, 0x01, 0x00, 0x02, 0x80),
+
+        // Anything after offset 0x1A are different.
+OOVPA_END;
+
+// ******************************************************************
+// * XGSetSurfaceHeader
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGSetSurfaceHeader, 3911, 9)
+
+        // XGSetSurfaceHeader+0x00 : push ebp, mov ebp,esp
+        OV_MATCH(0x00, 0x55, 0x8B, 0xEC),
+
+        OV_MATCH(0x06, 0x14),
+
+        OV_MATCH(0x09, 0x10),
+
+        // XGSetSurfaceHeader+0x0F : push 0x00, push 0x00
+        OV_MATCH(0x0F, 0x6A, 0x00, 0x6A, 0x00),
+OOVPA_END;
+
+// ******************************************************************
+// * XGSetVolumeTextureHeader
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGSetVolumeTextureHeader, 3911, 10)
+
+        // XGSetVolumeTextureHeader+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        OV_MATCH(0x05, 0x24),
+
+        OV_MATCH(0x08, 0x28),
+
+        // XGSetVolumeTextureHeader+0x09 : push 0x01, push 0x00
+        OV_MATCH(0x09, 0x6A, 0x01, 0x6A, 0x00),
+
+        // XGSetVolumeTextureHeader+0x28 : ret 0x0028
+        OV_MATCH(0x28, 0xC2, 0x28, 0x00),
+OOVPA_END;
+
+// ******************************************************************
+// * XGWriteSurfaceToFile
+// ******************************************************************
+// Generic OOVPA as of 3911 and newer.
+OOVPA_NO_XREF(XGWriteSurfaceToFile, 3911, 12)
+
+        // XGWriteSurfaceToFile+0x00 : push ebp
+        OV_MATCH(0x00, 0x55),
+
+        // XGWriteSurfaceToFile+0x03 : sub esp,0x0000036C
+        OV_MATCH(0x03, 0x81, 0xEC, 0x6C, 0x03),
+
+        // XGWriteSurfaceToFile+0x46 : push 0x28
+        OV_MATCH(0x46, 0x6A, 0x28),
+
+        // XGWriteSurfaceToFile+0x4B : push 0x02
+        OV_MATCH(0x4B, 0x6A, 0x02),
+
+        // XGWriteSurfaceToFile+0x4F : push 0x40000000
+        OV_MATCH(0x4F, 0x68),
+        OV_MATCH(0x52, 0x00, 0x40),
+OOVPA_END;

@@ -51,6 +51,7 @@
 // TODO: Known Xgraphics OOVPA issue list
 // * 3911 XGCompressRect is XREF in v1 database, any reason for this?
 // * Verification needed: Function Name ( Revision )
+//   Need to refresh this list.
 //   * XFONT_OpenBitmapFontFromMemory (4432, 4531, 4831, 5120)
 //   * XGCompressRect (4034, 4242, 4721, 5028, 5120)
 //   * XGIsSwizzledFormat (4034)
@@ -60,6 +61,7 @@
 //   * XGSwizzleBox (4242)
 //   * XGUnswizzleBox (4034, 4134, 4242)
 //   * XGWriteSurfaceOrTextureToXPR (4034, 4242, 5028)
+// * Need to move OOVPAs does not belong in 3911 to their specific version.
 // NOTE: Known Xgraphics OOVPA not included in initial revision.
 //   * XFONT_OpenBitmapFontFromMemory (4361)
 
@@ -77,17 +79,35 @@
 // ******************************************************************
 OOVPATable XGRAPHC_OOVPA[] = {
 
-    REGISTER_OOVPAS(XFONT_OpenBitmapFontFromMemory, 4361),
-    REGISTER_OOVPAS(XGCompressRect, 3911), // TODO: Do we need to patch this?
-    REGISTER_OOVPAS(XGIsSwizzledFormat, 3911),
-    REGISTER_OOVPAS(XGSetIndexBufferHeader, 3911, 4134),
-    REGISTER_OOVPAS(XGSetTextureHeader, 3911),
-    REGISTER_OOVPAS(XGSetVertexBufferHeader, 3911, 4134),
-    REGISTER_OOVPAS(XGSwizzleBox, 3911),
-    REGISTER_OOVPAS(XGSwizzleRect, 3911),
-    REGISTER_OOVPAS(XGUnswizzleBox, 3911),
-    REGISTER_OOVPAS(XGUnswizzleRect, 3911),
-    REGISTER_OOVPAS(XGWriteSurfaceOrTextureToXPR, 3911),
+    REGISTER_OOVPAS(DisassembleVertexShader, 3911, 4039), // Final generic OOVPA: ____; Removed: 0
+    REGISTER_OOVPAS(SupportsSSE, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XFONT_OpenBitmapFontFromMemory, 4361), // Final generic OOVPA: ____; Removed: 0 (introduced in ____)
+    REGISTER_OOVPAS(XGAssembleShader, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGBufferCreate, 3911, 5455), // Final generic OOVPA: ____; Removed: 0
+    REGISTER_OOVPAS(XGColorAdjustContrast, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGColorAdjustSaturation, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGCompressRect, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGIsSwizzledFormat, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGPlaneFromPointNormal, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGPlaneFromPoints, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGPlaneIntersectLine, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGPlaneNormalize, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGPlaneTransform, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGSetCubeTextureHeader, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGSetFixupHeader, 3911, 4242), // Final generic OOVPA: ____; Removed: 0
+    REGISTER_OOVPAS(XGSetIndexBufferHeader, 3911, 4134), // Final generic OOVPA: ____; Removed: 0
+    REGISTER_OOVPAS(XGSetPaletteHeader, 3911, 4242), // Final generic OOVPA: ____; Removed: 0
+    REGISTER_OOVPAS(XGSetPushBufferHeader, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGSetSurfaceHeader, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGSetTextureHeader, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGSetVertexBufferHeader, 3911, 4134), // Final generic OOVPA: ____; Removed: 0
+    REGISTER_OOVPAS(XGSetVolumeTextureHeader, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGSwizzleBox, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGSwizzleRect, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGUnswizzleBox, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGUnswizzleRect, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGWriteSurfaceOrTextureToXPR, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XGWriteSurfaceToFile, 3911), // Final generic OOVPA: 3911; Removed: 0
 };
 
 // ******************************************************************
