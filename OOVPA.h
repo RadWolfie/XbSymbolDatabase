@@ -164,6 +164,23 @@ MSVC_EXPAND(OOVPA_XREF_EXTEND(Name, Version, XRefSaveIndex, XRefCount, DetectDef
 #define OOVPA_NO_XREF(Name, Version, ...) \
 MSVC_EXPAND(OOVPA_XREF(Name, Version, XRefNoSaveIndex, XRefZero, __VA_ARGS__))
 
+/* Regex for replacing OOVPAs.
+
+Src: "^OOVPA_NO_XREF\(([a-zA-Z0-9_]*), ([0-9]*), ([0-9+]*)\)"
+Rpl: "OOVPA_NO_XREF($1, $2,"
+
+Src: "^OOVPA_XREF\(([a-zA-Z0-9_]*), ([0-9]*), ([0-9+]*),"
+Rpl: "OOVPA_XREF($1, $2,"
+
+Also update OOVPA_XREF_DETECT and OOVPA_NO_XREF_DETECT macros for above method.
+
+Src: "    XRef([a-zA-Z]*)\)"
+Rpl: "    XRef$1,"
+
+Src: "    XRef([a-zA-Z]*), XRef([a-zA-Z]*)\)"
+Rpl: "    XRef$1, XRef$2,
+
+*/
 
 // ******************************************************************
 // * OOVPATable
