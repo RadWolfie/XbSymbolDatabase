@@ -147,22 +147,22 @@ typedef struct _LOOVPA
 } LOOVPA;
 #pragma warning(pop)
 
-#define OOVPA_XREF_EXTEND(Name, Version, Count, XRefSaveIndex, XRefCount, DetectSelect) \
-LOOVPA Name##_##Version = { Count, XRefCount, XRefSaveIndex, DetectSelect, VARPADSET, VARPADSET, VARPADSET, {
+#define COUNTARGS(...) (sizeof((LOVP[]){__VA_ARGS__})/sizeof(LOVP))
 
-#define OOVPA_XREF_DETECT(Name, Version, Count, XRefSaveIndex, XRefCount, DetectSelect) \
-OOVPA_XREF_EXTEND(Name, Version, Count, XRefSaveIndex, XRefCount, DetectSelect)
+#define OOVPA_XREF_EXTEND(Name, Version, XRefSaveIndex, XRefCount, DetectSelect, ...) \
+LOOVPA Name##_##Version = { COUNTARGS(__VA_ARGS__), XRefCount, (unsigned short)XRefSaveIndex, { __VA_ARGS__ } }
 
-#define OOVPA_NO_XREF_DETECT(Name, Version, Count, DetectSelect) \
-OOVPA_XREF_EXTEND(Name, Version, Count, XRefNoSaveIndex, XRefZero, DetectSelect)
+#define OOVPA_XREF_DETECT(Name, Version, XRefSaveIndex, XRefCount, DetectSelect, ...) \
+MSVC_EXPAND(OOVPA_XREF_EXTEND(Name, Version, XRefSaveIndex, XRefCount, DetectSelect, __VA_ARGS__))
 
-#define OOVPA_XREF(Name, Version, Count, XRefSaveIndex, XRefCount) \
-OOVPA_XREF_EXTEND(Name, Version, Count, XRefSaveIndex, XRefCount, DetectDefault)
+#define OOVPA_NO_XREF_DETECT(Name, Version, DetectSelect, ...) \
+MSVC_EXPAND(OOVPA_XREF_EXTEND(Name, Version, XRefNoSaveIndex, XRefZero, DetectSelect, __VA_ARGS__))
 
-#define OOVPA_NO_XREF(Name, Version, Count) \
-OOVPA_XREF_EXTEND(Name, Version, Count, XRefNoSaveIndex, XRefZero, DetectDefault)
+#define OOVPA_XREF(Name, Version, XRefSaveIndex, XRefCount, ...) \
+MSVC_EXPAND(OOVPA_XREF_EXTEND(Name, Version, XRefSaveIndex, XRefCount, DetectDefault, __VA_ARGS__))
 
-#define OOVPA_END } }
+#define OOVPA_NO_XREF(Name, Version, ...) \
+MSVC_EXPAND(OOVPA_XREF(Name, Version, XRefNoSaveIndex, XRefZero, __VA_ARGS__))
 
 
 // ******************************************************************
