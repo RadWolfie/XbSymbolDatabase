@@ -772,10 +772,32 @@ typedef enum _XRefDatabaseOffset
     XREF_CXo_XOnlineLogon,
 
     // XAPI
+    // Variables
+    XREF_XAPI__tls_array, // initially set to XREF_ADDR_DERIVE
+    XREF_XAPI__tls_index, // initially set to XREF_ADDR_DERIVE
+    // Offsets
+    XREF_OFFSET_XapiCurrentFiber, // initially set to XREF_ADDR_DERIVE
+    XREF_OFFSET_XapiLastErrorCode, // initially set to XREF_ADDR_DERIVE
+    XREF_OFFSET_XapiThreadFiberData, // initially set to XREF_ADDR_DERIVE
+    // Functions
     XREF_XAPI__cinit,
     XREF_XAPI__rtinit,
+    XREF_XAPI_CreateThread,
+    XREF_XAPI_GetLastError,
     XREF_XAPI_GetTypeInformation,
     XREF_XAPI_OutputDebugStringA,
+    XREF_XAPI_SetLastError,
+    XREF_XAPI_UnhandledExceptionFilter, // initially set to XREF_ADDR_DERIVE
+    XREF_XapiBootToDash,
+    XREF_XapipCalculateContentSignatureBegin,
+    XREF_XapipCalculateSaveGameSignatureBegin,
+    XREF_XapiCallThreadNotifyRoutines,
+    XREF_XapiFormatObjectAttributes,
+    XREF_XapiSetLastNTError,
+    XREF_XapiThreadNotifyRoutineList, // initially set to XREF_ADDR_DERIVE
+    XREF_XapiThreadStartup,
+    XREF_XCalculateSignatureBeginEx,
+    XREF_XLaunchNewImageA,
 
     // JVS
     XREF_JVS_SendCommand_String,

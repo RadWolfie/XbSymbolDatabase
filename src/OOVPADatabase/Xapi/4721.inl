@@ -26,7 +26,9 @@
 // ******************************************************************
 // * XLaunchNewImageA
 // ******************************************************************
-OOVPA_NO_XREF(XLaunchNewImageA, 4721, 15)
+OOVPA_XREF(XLaunchNewImageA, 4721, 15,
+    XREF_XLaunchNewImageA,
+    XRefZero)
 
         { 0x03, 0x81 },
         { 0x04, 0xEC },
