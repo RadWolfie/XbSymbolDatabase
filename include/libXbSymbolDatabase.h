@@ -793,6 +793,7 @@ typedef enum _XRefDatabaseOffset
     XREF_XapipCalculateSaveGameSignatureBegin,
     XREF_XapiCallThreadNotifyRoutines,
     XREF_XapiFormatObjectAttributes,
+    XREF_XapiSelectCachePartition,
     XREF_XapiSetLastNTError,
     XREF_XapiThreadNotifyRoutineList, // initially set to XREF_ADDR_DERIVE
     XREF_XapiThreadStartup,

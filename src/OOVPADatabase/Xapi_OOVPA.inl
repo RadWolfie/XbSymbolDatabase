@@ -329,7 +329,6 @@
 //   * XapipUseDaylightSavingTime
 //   * XapiReadFromStDb
 //   * XapiSaveGameHashEncode
-//   * XapiSelectCachePartition
 //   * XapiSetupPerTitleDriveLetters
 //   * XapiTouchDirectoryTimestamp
 //   * XapiValidateAndSkipUnicodeSignature
@@ -433,6 +432,7 @@ OOVPATable XAPILIB_OOVPA[] = {
     REGISTER_OOVPAS(GetLastError, 3911), // Final generic OOVPA: 3911; Removed: 0
     REGISTER_OOVPAS(SetLastError, 3911), // Final generic OOVPA: 3911; Removed: 0
     REGISTER_OOVPAS(XapiBootToDash, 3911), // Final generic OOVPA: 3911; Removed: 0
+    REGISTER_OOVPAS(XapiSelectCachePartition, 3911), // Final generic OOVPA: 3911; Removed: 0
     REGISTER_OOVPAS(XapiSetLastNTError, 3911), // Final generic OOVPA: 3911; Removed: 0
     REGISTER_OOVPAS(XapiThreadStartup, 3911), // Final generic OOVPA: 3911; Removed: 0
 
