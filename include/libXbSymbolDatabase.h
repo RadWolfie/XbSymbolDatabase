@@ -772,7 +772,10 @@ typedef enum _XRefDatabaseOffset
     XREF_CXo_XOnlineLogon,
 
     // XAPI
+    XREF_XAPI__cinit,
+    XREF_XAPI__rtinit,
     XREF_XAPI_GetTypeInformation,
+    XREF_XAPI_OutputDebugStringA,
 
     // JVS
     XREF_JVS_SendCommand_String,
