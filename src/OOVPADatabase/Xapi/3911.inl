@@ -1256,14 +1256,17 @@ OOVPA_END;
 //     as it is very short function.
 //   * Actually, Splinter Cell Pandora Tomorrow (5788) has same issue
 //     except has a lot more duplicated symbols.
-OOVPA_NO_XREF(XGetSectionSize, 3911, 5)
+//   * Since function is very small, it is recommended to use derived from...
+//     * XapiMapLetterToDirectory
+//     * XapiCopySectionToFile
+/*OOVPA_NO_XREF(XGetSectionSize, 3911, 5)
 
         { 0x00, 0x8B },
         { 0x02, 0x24 },
         { 0x04, 0x8B },
         { 0x06, 0x08 },
         { 0x08, 0x04 },
-OOVPA_END;
+OOVPA_END;*/
 
 // ******************************************************************
 // * _cinit

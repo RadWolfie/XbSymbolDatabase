@@ -466,7 +466,7 @@ OOVPATable XAPILIB_OOVPA[] = {
     REGISTER_OOVPAS(XGetDeviceEnumerationStatus, 4831),
     REGISTER_OOVPAS(XGetDevices, 3911),
     REGISTER_OOVPAS(XGetLaunchInfo, 3911),
-    REGISTER_OOVPAS(XGetSectionSize, 3911), //TODO: Currently very weak OVPs.
+    //REGISTER_OOVPAS(XGetSectionSize, 3911), //TODO: Use derived xref as alternative solution.
     REGISTER_OOVPAS(XID_fCloseDevice, 3911, 4831),
     REGISTER_OOVPAS(XInitDevices, 3911, 5120),
     REGISTER_OOVPAS(XInputClose, 3911),
