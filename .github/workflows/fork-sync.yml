@@ -13,6 +13,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: master
+        token: ${{ secrets.FORK_TOKEN }}
         
     - name: Pull upstream changes
       id: sync
