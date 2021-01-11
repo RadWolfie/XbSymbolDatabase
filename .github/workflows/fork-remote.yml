@@ -1,0 +1,81 @@
+name: Fork Remote
+
+on:
+  workflow_dispatch:
+    inputs:
+      cmd:
+        description: 'git command (excluding git)'
+        default: 'rebase origin/master'
+      branch_target:
+        description: 'Target branch'
+        default: ''
+        require: true
+      branch_base:
+        description: 'Base branch'
+        default: 'master'
+        require: true
+      #git_pull_args:
+      #  description: 'git pull args'
+      #  default: '--ff-only'
+      #  require: true
+      git_push_args:
+        description: 'git push args'
+        default: '--force'
+        require: true
+      git_pull_rebase_config:
+        description: 'git pull rebase config'
+        default: 'true'
+        require: true
+
+jobs:
+  fork_remote:
+    runs-on: ubuntu-latest
+    name: Run User Command Remotely
+
+    steps:
+      #- name: Obtain App Installation Access Token
+      #  id: AppAuth
+      #  run: |
+      #    TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.APP_TOKEN }})"
+      #    echo "::add-mask::$TOKEN"
+      #    echo "::set-output name=token::$TOKEN"
+      - name: Setup git as User
+        run: |
+          git config --global user.name ${{ github.actor }}
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global pull.rebase "${{ github.event.inputs.git_pull_rebase_config }}"
+          
+      - name: Checkout ${{ github.event.inputs.branch_base }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch_base }}
+          fetch-depth: 0
+          token: ${{ secrets.FORK_TOKEN }}
+
+      - name: Checkout ${{ github.event.inputs.branch_target }}
+        if: github.event.inputs.branch_base != github.event.inputs.branch_target
+        run: git checkout ${{ github.event.inputs.branch_target }}
+
+      - name: Run User Command
+        run: |
+          git ${{ github.event.inputs.cmd }}
+          exit $?
+
+      - name: Push
+        run: | 
+          git push ${{ github.event.inputs.git_push_args }} origin ${{ github.event.inputs.branch_target }}
+          exit $?
+
+      #- name: Pull upstream changes
+      #  id: sync
+      #  uses: RadWolfie/Fork-Sync-With-Upstream-action@user-email-swap-bug-fix
+      #  with:
+      #    upstream_repository: ${{ github.repository }}
+      #    upstream_branch: master
+      #    target_branch: ${{ github.event.inputs.branch_target }}
+      #    git_pull_args: ${{ github.event.inputs.git_pull_args }}
+      #    git_push_args: ${{ github.event.inputs.git_push_args }}
+      #    git_pull_rebase_config: ${{ github.event.inputs.git_pull_rebase_config }}
+      #    git_user: ${{ github.actor }}
+      #    git_email: ${{ github.actor }}@users.noreply.github.com
+      #    github_token: ${{ steps.AppAuth.outputs.token }}
