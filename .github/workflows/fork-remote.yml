@@ -14,10 +14,6 @@ on:
         description: 'Base branch'
         default: 'master'
         require: true
-      #git_pull_args:
-      #  description: 'git pull args'
-      #  default: '--ff-only'
-      #  require: true
       git_push_args:
         description: 'git push args'
         default: '--force'
@@ -33,12 +29,6 @@ jobs:
     name: Run User Command Remotely
 
     steps:
-      #- name: Obtain App Installation Access Token
-      #  id: AppAuth
-      #  run: |
-      #    TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.APP_TOKEN }})"
-      #    echo "::add-mask::$TOKEN"
-      #    echo "::set-output name=token::$TOKEN"
       - name: Setup git as User
         run: |
           git config --global user.name ${{ github.actor }}
@@ -65,17 +55,3 @@ jobs:
         run: | 
           git push ${{ github.event.inputs.git_push_args }} origin ${{ github.event.inputs.branch_target }}
           exit $?
-
-      #- name: Pull upstream changes
-      #  id: sync
-      #  uses: RadWolfie/Fork-Sync-With-Upstream-action@user-email-swap-bug-fix
-      #  with:
-      #    upstream_repository: ${{ github.repository }}
-      #    upstream_branch: master
-      #    target_branch: ${{ github.event.inputs.branch_target }}
-      #    git_pull_args: ${{ github.event.inputs.git_pull_args }}
-      #    git_push_args: ${{ github.event.inputs.git_push_args }}
-      #    git_pull_rebase_config: ${{ github.event.inputs.git_pull_rebase_config }}
-      #    git_user: ${{ github.actor }}
-      #    git_email: ${{ github.actor }}@users.noreply.github.com
-      #    github_token: ${{ steps.AppAuth.outputs.token }}
