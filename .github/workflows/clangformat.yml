@@ -1,0 +1,27 @@
+name: Clang-Format Verify
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_target:
+        description: 'Target branch'
+        default: ''
+        require: true
+
+jobs:
+  clangformat:
+    runs-on: ubuntu-latest
+    name: Clang-Format Verify2
+
+    steps:
+    - name: Checkout ${{ github.event.inputs.branch_target }}
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.inputs.branch_target }}
+        
+    - name: Clang-Format Lint
+      uses: DoozyX/clang-format-lint-action@v0.11
+      with:
+        source: '.'
+        extensions: 'h,c'
+        clangFormatVersion: 7
