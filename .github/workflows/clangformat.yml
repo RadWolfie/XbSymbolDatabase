@@ -24,4 +24,4 @@ jobs:
       with:
         source: '.'
         extensions: 'h,c'
-        clangFormatVersion: 7
+        clangFormatVersion: 10
