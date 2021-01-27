@@ -1,0 +1,44 @@
+name: Fork Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_target:
+        description: 'Target branch'
+        default: 'master'
+        require: true
+
+jobs:
+  fork-build:
+    name: ${{ matrix.platform }} (${{ matrix.arch }}, ${{ matrix.configuration }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        cmake-generator:
+          - ${{ '"Unix Makefiles"' }}
+        configuration: [Release]
+        include:
+          - cmake-generator: ${{ '"Unix Makefiles"' }}
+            platform: Linux
+            os: ubuntu-latest
+            arch: x64
+    steps:
+      - name: Checkout ${{ github.event.inputs.branch_target }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch_target }}
+          submodules: recursive
+      - name: Generate CMake Files
+        # NOTES:
+        # -Werror=dev is used to validate CMakeLists.txt for any faults.
+        run: |
+          mkdir build && cd build
+          cmake .. -Werror=dev -G ${{ matrix.cmake-generator }}
+      - name: Build
+        working-directory: build
+        run: cmake --build . --config ${{ matrix.configuration }} ${{ matrix.cmake-build-param }}
+      - name: Copy Files
+        if: matrix.configuration == 'Release'
+        working-directory: build
+        run: cmake --install . --config ${{ matrix.configuration }} --prefix ../upload/${{ matrix.folder }}_${{ matrix.arch }}
