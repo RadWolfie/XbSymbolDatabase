@@ -1,0 +1,42 @@
+name: Clang-Format Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_target:
+        description: 'Target branch'
+        default: ''
+        require: true
+      commit_message:
+        description: 'Commit message'
+        default: ''
+        require: true
+
+jobs:
+  clangformat:
+    runs-on: ubuntu-latest
+    name: Clang-Format Update
+
+    steps:
+      - name: Setup git as User
+        run: |
+          git config --global user.name ${{ github.actor }}
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global pull.rebase "${{ github.event.inputs.git_pull_rebase_config }}"
+      - name: Checkout ${{ github.event.inputs.branch_target }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch_target }}
+      - name: Clang-Format Lint
+        uses: DoozyX/clang-format-lint-action@v0.11
+        with:
+          source: '.'
+          extensions: 'h,c,inl'
+          clangFormatVersion: 10
+          inplace: True
+      - name: Add commit & push
+        run: |
+          git add .
+          git commit -m "${{ github.event.inputs.commit_message }}"
+          git push origin ${{ github.event.inputs.branch_target }}
+       
