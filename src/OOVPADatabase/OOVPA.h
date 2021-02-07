@@ -153,7 +153,7 @@ typedef struct _LOOVPA {
 } LOOVPA;
 #pragma warning(pop)
 
-#define COUNTARGS(...) (sizeof((LOVP[]){__VA_ARGS__})/sizeof(LOVP))
+#define COUNTARGS(...) (sizeof((LOVP[]){__VA_ARGS__}) / sizeof(LOVP))
 // clang-format off
 #define OOVPA_SIG(...) MSVC_EXPAND(COUNTARGS(__VA_ARGS__)), { __VA_ARGS__ } }
 // clang-format on
