@@ -23,25 +23,25 @@
 // *
 // ******************************************************************
 
-OOVPA_XREF(JVS_SendCommand_String, 4831, 13,
+OOVPA_XREF_Test(JVS_SendCommand_String, 4831,
 
-           XREF_JVS_SendCommand_String,
-           XRefZero)
-{
-
-    // JVS_STATUS_ERROR_DEVICE_NOT_CONNECTED2 from JVS_SendCommand
-    OV_MATCH(0x00, 'J', 'V', 'S'),
-    OV_MATCH(0x04, 'S'),
-    OV_MATCH(0x0B, 'E'),
-    OV_MATCH(0x11, 'D'),
-    OV_MATCH(0x18, 'N'),
-    OV_MATCH(0x1C, 'C'),
-    OV_MATCH(0x25, '2'),
-    OV_MATCH(0x27, 'f'),
-    OV_MATCH(0x2C, 'J'),
-    OV_MATCH(0x30, 'S'),
-    OV_MATCH(0x34, 'C'),
-} OOVPA_END;
+                XREF_JVS_SendCommand_String,
+                XRefZero,
+                DetectDefault)
+OOVPA_SIG(
+          // JVS_STATUS_ERROR_DEVICE_NOT_CONNECTED2 from JVS_SendCommand
+          OV_MATCH(0x00, 'J', 'V', 'S'),
+          OV_MATCH(0x04, 'S'),
+          OV_MATCH(0x0B, 'E'),
+          OV_MATCH(0x11, 'D'),
+          OV_MATCH(0x18, 'N'),
+          OV_MATCH(0x1C, 'C'),
+          OV_MATCH(0x25, '2'),
+          OV_MATCH(0x27, 'f'),
+          OV_MATCH(0x2C, 'J'),
+          OV_MATCH(0x30, 'S'),
+          OV_MATCH(0x34, 'C'),
+);
 
 
 OOVPA_XREF(JvsBACKUP_Read_String, 4831, 13,
