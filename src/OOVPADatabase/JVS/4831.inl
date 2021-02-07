@@ -63,7 +63,7 @@ OOVPA_XREF(JvsBACKUP_Read_String, 4831, 13,
 OOVPA_XREF(JvsBACKUP_Write_String, 4831, 13,
 
            XREF_JvsBACKUP_Write_String,
-           XRefZero)
+           XRefZero,
 {
 
     // Status error <JvsBACKUP_Write>
@@ -74,7 +74,7 @@ OOVPA_XREF(JvsBACKUP_Write_String, 4831, 13,
     OV_MATCH(0x18, 'W'),
     OV_MATCH(0x1C, 'e'),
     OV_MATCH(0x1D, '>'),
-} OOVPA_END;
+}) OOVPA_END;
 
 OOVPA_XREF(JvsEEPROM_Read_String, 4831, 13,
 
