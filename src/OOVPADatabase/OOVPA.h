@@ -57,7 +57,7 @@ typedef struct _OOVPA {
 
     unsigned char DetectSelect;
 
-    unsigned char Padding[2];
+    unsigned char Padding2[2];
 
     // This OOVPA field, Count, indicates the number of
     // {Offset, Value}-pairs present in the Lovp array,
