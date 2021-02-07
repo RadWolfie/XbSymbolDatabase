@@ -14,7 +14,7 @@ Cpp11BracedListStyle: 'false'
 IndentCaseLabels: 'true'
 IndentWidth: '4'
 MacroBlockBegin: ^OOVPA_XREF$|^OOVPA_NO_XREF$|^OOVPA_XREF_DETECT$|^OOVPA_NO_XREF_DETECT$|^OOVPA_XREF_EXTEND$
-MacroBlockEnd: ^OOVPA_END$
+MacroBlockEnd: ^OOVPA_END$|^OOVPA_SIG$
 MaxEmptyLinesToKeep: '2'
 PointerAlignment: Left
 SortIncludes: 'false'
