@@ -154,7 +154,9 @@ typedef struct _LOOVPA {
 #pragma warning(pop)
 
 #define COUNTARGS(...) (sizeof((LOVP[]){__VA_ARGS__})/sizeof(LOVP))
+// clang-format off
 #define OOVPA_SIG(...) MSVC_EXPAND(COUNTARGS(__VA_ARGS__)), { __VA_ARGS__ } }
+// clang-format on
 
 #define OOVPA_XREF_Test(Name, Version, XRefSaveIndex, XRefCount, DetectSelect) \
     LOOVPA Name##_##Version = { VARPADSET, XRefCount, XRefSaveIndex, DetectSelect, VARPADSET, VARPADSET,
