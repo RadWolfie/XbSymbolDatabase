@@ -41,7 +41,7 @@ OOVPA_SIG(
     OV_MATCH(0x2C, 'J'),
     OV_MATCH(0x30, 'S'),
     OV_MATCH(0x34, 'C'),
-);
+OOVPA_END);
 
 
 OOVPA_XREF(JvsBACKUP_Read_String, 4831, 13,
