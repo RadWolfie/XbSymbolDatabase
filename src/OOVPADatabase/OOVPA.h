@@ -40,12 +40,8 @@
 // * Optimized (Offset, Value)-Pair Array
 // ******************************************************************
 typedef struct _OOVPA {
-    // This OOVPA field, Count, indicates the number of
-    // {Offset, Value}-pairs present in the Lovp array,
-    // available after casting this OOVPA to LOOVPA.
-    // (This Count INCLUDES optional leading {Offset, XREF_*-enum}-
-    // pairs - see comment at XRefCount.)
-    unsigned char Count;
+
+    unsigned char Padding;
 
     // This OOVPA field, XRefCount, contains the number of
     // {Offset, XREF_*-enum}-pairs that come before all other
@@ -61,7 +57,14 @@ typedef struct _OOVPA {
 
     unsigned char DetectSelect;
 
-    unsigned char Padding[3];
+    unsigned char Padding[2];
+
+    // This OOVPA field, Count, indicates the number of
+    // {Offset, Value}-pairs present in the Lovp array,
+    // available after casting this OOVPA to LOOVPA.
+    // (This Count INCLUDES optional leading {Offset, XREF_*-enum}-
+    // pairs - see comment at XRefCount.)
+    unsigned char Count;
 
     // Define LOVP here to reduce type definition complexity.
     // (Otherwise, if defined in the template classes, that would mean
@@ -150,8 +153,14 @@ typedef struct _LOOVPA {
 } LOOVPA;
 #pragma warning(pop)
 
+#define COUNTARGS(...) (sizeof((LOVP[]){__VA_ARGS__})/sizeof(LOVP))
+#define OOVPA_SIG(...) MSVC_EXPAND(COUNTARGS(__VA_ARGS__)), { __VA_ARGS__ } }
+
+#define OOVPA_XREF_Test(Name, Version, XRefSaveIndex, XRefCount, DetectSelect) \
+    LOOVPA Name##_##Version = { VARPADSET, XRefCount, XRefSaveIndex, DetectSelect, VARPADSET, VARPADSET,
+
 #define OOVPA_XREF_EXTEND(Name, Version, Count, XRefSaveIndex, XRefCount, DetectSelect) \
-    LOOVPA Name##_##Version = { Count, XRefCount, XRefSaveIndex, DetectSelect, VARPADSET, VARPADSET, VARPADSET,
+    LOOVPA Name##_##Version = { VARPADSET, XRefCount, XRefSaveIndex, DetectSelect, VARPADSET, VARPADSET, Count,
 
 #define OOVPA_XREF_DETECT(Name, Version, Count, XRefSaveIndex, XRefCount, DetectSelect) \
     OOVPA_XREF_EXTEND(Name, Version, Count, XRefSaveIndex, XRefCount, DetectSelect)
