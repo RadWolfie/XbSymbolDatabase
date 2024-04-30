@@ -79,32 +79,32 @@ jobs:
       matrix:
         cmake-generator:
           # x86 arch
-          - -A Win32 # Visual Studio (latest IDE)
+          #- -A Win32 # Visual Studio (latest IDE)
           # x64 arch
-          - -A x64 # Visual Studio (latest IDE)
-          - -G "Unix Makefiles"
-          - -G Xcode buildsystem=14
+          #- -A x64 # Visual Studio (latest IDE)
+          #- -G "Unix Makefiles"
+          - -G Xcode -T buildsystem=14
         configuration: [Debug, Release]
         include:
-          - cmake-generator: -A Win32
-            platform: Windows
-            os: windows-latest
-            arch: x86
-            cmake-build-param: -j $env:NUMBER_OF_PROCESSORS
-            folder: win
-          - cmake-generator: -A x64
-            platform: Windows
-            os: windows-latest
-            arch: x64
-            cmake-build-param: -j $env:NUMBER_OF_PROCESSORS
-            folder: win
-          - cmake-generator: -G "Unix Makefiles"
-            platform: Linux
-            os: ubuntu-latest
-            arch: x64
-            cmake-build-param: -j $(nproc --all)
-            folder: linux
-          - cmake-generator: -G Xcode buildsystem=14
+          #- cmake-generator: -A Win32
+          #  platform: Windows
+          #  os: windows-latest
+          #  arch: x86
+          #  cmake-build-param: -j $env:NUMBER_OF_PROCESSORS
+          #  folder: win
+          #- cmake-generator: -A x64
+          #  platform: Windows
+          #  os: windows-latest
+          #  arch: x64
+          #  cmake-build-param: -j $env:NUMBER_OF_PROCESSORS
+          #  folder: win
+          #- cmake-generator: -G "Unix Makefiles"
+          #  platform: Linux
+          #  os: ubuntu-latest
+          #  arch: x64
+          #  cmake-build-param: -j $(nproc --all)
+          #  folder: linux
+          - cmake-generator: -G Xcode -T buildsystem=14
             platform: macOS
             os: macos-latest
             arch: x64
