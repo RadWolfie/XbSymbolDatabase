@@ -161,7 +161,7 @@ jobs:
   #]]
   build-mingw:
     name: ${{ matrix.platform }} (${{ matrix.arch }}, ${{ matrix.configuration }})
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest #${{ matrix.os }}
     needs: semver
     if: needs.semver.outputs.do-build == 'true'
     strategy:
