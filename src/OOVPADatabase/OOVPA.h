@@ -34,7 +34,8 @@
 #define STRINGIZEX(x) #x
 #define STRINGIZE(x)  STRINGIZEX(x)
 
-#pragma pack(1)
+// disable pack to check if arm64 will build/link now
+//#pragma pack(1)
 
 // ******************************************************************
 // * Optimized (Offset, Value)-Pair Array
@@ -309,6 +310,7 @@ typedef struct _OOVPATable {
                                  OV_BYTES_8, OV_BYTES_7, OV_BYTES_6, OV_BYTES_5, OV_BYTES_4, \
                                  OV_BYTES_3, OV_BYTES_2, OV_BYTES_1, OV_BYTES_0)(Offset, __VA_ARGS__))
 
-#pragma pack()
+// disable pack to check if arm64 will build/link now
+//#pragma pack()
 
 #endif
