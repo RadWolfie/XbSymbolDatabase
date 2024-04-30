@@ -188,4 +188,4 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
       - name: CTests
-        run: ctest --test-dir build --build-config ${{ matrix.configuration }} --verbose
+        run: ctest --test-dir build --build-config Release --verbose
