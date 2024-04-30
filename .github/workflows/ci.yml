@@ -99,21 +99,21 @@ jobs:
           #  arch: x64
           #  cmake-build-param: -j $env:NUMBER_OF_PROCESSORS
           #  folder: win
-          #- cmake-generator: -G "Unix Makefiles"
-          #  platform: Linux
-          #  os: ubuntu-latest
-          #  arch: x64
-          #  cmake-build-param: -j $(nproc --all)
-          #  folder: linux
-          - os: macos-13
+          - cmake-generator: -G "Unix Makefiles"
+            platform: Linux
+            os: ubuntu-latest
+            arch: x64
+            cmake-build-param: -j $(nproc --all)
+            folder: linux
+          - cmake-generator: -G Xcode
+            os: macos-13
             platform: macOS
-            cmake-generator: -G Xcode
             arch: x64
             cmake-build-param: -j $(sysctl -n hw.ncpu)
             folder: macos
-          - os: macos-latest
+          - cmake-generator: -G Xcode
+            os: macos-latest
             platform: macOS
-            cmake-generator: -G Xcode
             arch: arm64
             cmake-build-param: -j $(sysctl -n hw.ncpu)
             folder: macos
