@@ -85,6 +85,7 @@ jobs:
           #- -G "Unix Makefiles"
           - -G Xcode
         configuration: [Debug, Release]
+        platform: [macOS]
         include:
           #- cmake-generator: -A Win32
           #  platform: Windows
@@ -104,15 +105,18 @@ jobs:
           #  arch: x64
           #  cmake-build-param: -j $(nproc --all)
           #  folder: linux
-          - cmake-generator: -G Xcode
-            platform: macOS
+          - platform: macOS
+            cmake-generator: -G Xcode
             os: macos-13
             arch: x64
             cmake-build-param: -j $(sysctl -n hw.ncpu)
             folder: macos
           - platform: macOS
+            cmake-generator: -G Xcode
             os: macos-latest
             arch: arm64
+            cmake-build-param: -j $(sysctl -n hw.ncpu)
+            folder: macos
     steps:
       - uses: actions/checkout@v3
       - name: Generate CMake Files
