@@ -19,6 +19,7 @@
 #include <map>
 #include <sstream>
 #include <stdlib.h>
+#include <uchar.h> // debug: test if include will work for XCode
 #include <string>
 //#define DISABLE_MULTI_THREAD // NOTE: Uncomment define if need to use or test on single thread.
 #ifndef DISABLE_MULTI_THREAD
