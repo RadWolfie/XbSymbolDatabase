@@ -84,7 +84,10 @@ jobs:
           #- -A x64 # Visual Studio (latest IDE)
           #- -G "Unix Makefiles"
           #- -G Xcode
-        os: [macos-latest, macos-13]
+        #os: [macos-latest, macos-13]
+        matrix-list:
+          - macOS x64
+          - macOS arm64
         configuration: [Debug, Release]
         include:
           #- cmake-generator: -A Win32
@@ -99,19 +102,22 @@ jobs:
           #  arch: x64
           #  cmake-build-param: -j $env:NUMBER_OF_PROCESSORS
           #  folder: win
-          - cmake-generator: -G "Unix Makefiles"
+          - matrix-list: Ubuntu
+            cmake-generator: -G "Unix Makefiles"
             platform: Linux
             os: ubuntu-latest
             arch: x64
             cmake-build-param: -j $(nproc --all)
             folder: linux
-          - cmake-generator: -G Xcode
+          - matrix-list: macOS x64
+            cmake-generator: -G Xcode
             os: macos-13
             platform: macOS
             arch: x64
             cmake-build-param: -j $(sysctl -n hw.ncpu)
             folder: macos
-          - cmake-generator: -G Xcode
+          - matrix-list: macOS arm64
+            cmake-generator: -G Xcode
             os: macos-latest
             platform: macOS
             arch: arm64
