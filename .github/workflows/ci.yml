@@ -160,8 +160,8 @@ jobs:
   #        if-no-files-found: error
   #]]
   build-mingw:
-    name: ${{ matrix.platform }} (${{ matrix.arch }}, ${{ matrix.configuration }})
-    runs-on: ubuntu-latest #${{ matrix.os }}
+    name: ${{ matrix.sys }} (${{ matrix.env }}, Release)
+    runs-on: windows-latest #${{ matrix.os }}
     needs: semver
     if: needs.semver.outputs.do-build == 'true'
     strategy:
