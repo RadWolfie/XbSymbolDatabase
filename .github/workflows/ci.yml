@@ -178,7 +178,8 @@ jobs:
       - uses: msys2/setup-msys2@v2
         with:
           msystem: ${{matrix.sys}}
-          pacboy: cmake:p
+          install: git make
+          pacboy: toolchain:p cmake:p ninja:p
       - uses: actions/checkout@v4
       - name: Generate CMake Files
         # NOTES:
