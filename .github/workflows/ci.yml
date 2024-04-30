@@ -83,7 +83,7 @@ jobs:
           # x64 arch
           #- -A x64 # Visual Studio (latest IDE)
           #- -G "Unix Makefiles"
-          - -G Xcode -DCMAKE_OSX_DEPLOYMENT_TARGET=14.3.1
+          - -G Xcode
         configuration: [Debug, Release]
         include:
           #- cmake-generator: -A Win32
@@ -104,7 +104,7 @@ jobs:
           #  arch: x64
           #  cmake-build-param: -j $(nproc --all)
           #  folder: linux
-          - cmake-generator: -G Xcode -DCMAKE_OSX_DEPLOYMENT_TARGET=14.3.1
+          - cmake-generator: -G Xcode
             platform: macOS
             os: macos-latest
             arch: x64
@@ -112,6 +112,8 @@ jobs:
             folder: macos
     steps:
       - uses: actions/checkout@v3
+      - name: macOS XCode Selection
+        run: sudo xcode-select -s "/Applications/Xcode_14.3.1.app"
       - name: Generate CMake Files
         # NOTES:
         # -Werror=dev is used to validate CMakeLists.txt for any faults.
