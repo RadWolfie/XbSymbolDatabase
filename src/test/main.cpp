@@ -897,7 +897,7 @@ int main(int argc, char** argv)
         return UNITTEST_OK;
     }
 
-    if (test_ret = cliInputInteractive(argc, argv)) {
+    if ((test_ret = cliInputInteractive(argc, argv))) {
         return test_ret;
     }
 
