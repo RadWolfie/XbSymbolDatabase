@@ -110,12 +110,9 @@ jobs:
             arch: x64
             cmake-build-param: -j $(sysctl -n hw.ncpu)
             folder: macos
-          - cmake-generator: -G Xcode
-            platform: macOS
+          - platform: macOS
             os: macos-latest
             arch: arm64
-            cmake-build-param: -j $(sysctl -n hw.ncpu)
-            folder: macos
     steps:
       - uses: actions/checkout@v3
       - name: Generate CMake Files
