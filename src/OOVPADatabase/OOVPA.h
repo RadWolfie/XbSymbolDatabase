@@ -34,8 +34,8 @@
 #define STRINGIZEX(x) #x
 #define STRINGIZE(x)  STRINGIZEX(x)
 
-// disable pack to check if arm64 will build/link now
-//#pragma pack(1)
+// debug: finding the origin of cause for macOS compile issue
+#pragma pack(1)
 
 // ******************************************************************
 // * Optimized (Offset, Value)-Pair Array
@@ -65,6 +65,9 @@ typedef struct _OOVPA {
     // that for each template instance, the type is redefined. Let's
     // avoid that.)
 } OOVPA;
+
+// debug: finding the origin of cause for macOS compile issue
+#pragma pack()
 
 // {Offset, Value}-pair(s)
 typedef struct _LOVP {
