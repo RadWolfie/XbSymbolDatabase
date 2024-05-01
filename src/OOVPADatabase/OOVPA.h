@@ -189,7 +189,7 @@ typedef struct _LOOVPA {
 // clang-format on
 
 // debug: finding the origin of cause for macOS compile issue
-#pragma pack()
+#pragma pack() // works
 
 typedef struct _OOVPARevision {
     OOVPA* Oovpa;
@@ -198,6 +198,7 @@ typedef struct _OOVPARevision {
 
 // debug: finding the origin of cause for macOS compile issue
 //#pragma pack() // failed
+#pragma pack(1)
 
 #define COUNTARGS_USHORT(...) (sizeof((unsigned short[]){ __VA_ARGS__ }) / sizeof(unsigned short))
 
@@ -219,6 +220,9 @@ typedef struct _OOVPATable {
     unsigned count;
     OOVPARevision* revisions;
 } OOVPATable;
+
+// debug: finding the origin of cause for macOS compile issue
+#pragma pack()
 
 // http://en.cppreference.com/w/cpp/iterator/size
 //#include <iterator>
