@@ -67,7 +67,7 @@ typedef struct _OOVPA {
 } OOVPA;
 
 // debug: finding the origin of cause for macOS compile issue
-#pragma pack()
+//#pragma pack() // works
 
 // {Offset, Value}-pair(s)
 typedef struct _LOVP {
@@ -89,6 +89,9 @@ typedef struct _LOVP {
         } xref;
     };
 } LOVP;
+
+// debug: finding the origin of cause for macOS compile issue
+#pragma pack()
 
 // Set variable's padding to 0.
 #define VARPADSET 0
