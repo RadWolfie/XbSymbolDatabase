@@ -188,13 +188,16 @@ typedef struct _LOOVPA {
 #define OOVPA_END }
 // clang-format on
 
+// debug: finding the origin of cause for macOS compile issue
+#pragma pack()
+
 typedef struct _OOVPARevision {
     OOVPA* Oovpa;
     unsigned short Version; // : 13; // 2^13 = 8192, enough to store lowest and highest possible Library Version number in
 } OOVPARevision;
 
 // debug: finding the origin of cause for macOS compile issue
-#pragma pack()
+//#pragma pack() // failed
 
 #define COUNTARGS_USHORT(...) (sizeof((unsigned short[]){ __VA_ARGS__ }) / sizeof(unsigned short))
 
