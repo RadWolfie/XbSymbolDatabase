@@ -91,7 +91,7 @@ typedef struct _LOVP {
 } LOVP;
 
 // debug: finding the origin of cause for macOS compile issue
-#pragma pack()
+//#pragma pack() // works
 
 // Set variable's padding to 0.
 #define VARPADSET 0
@@ -147,6 +147,9 @@ typedef struct _LOOVPA {
     LOVP Lovp[];
 } LOOVPA;
 #pragma warning(pop)
+
+// debug: finding the origin of cause for macOS compile issue
+#pragma pack()
 
 #define COUNTARGS_LOVP(...) (sizeof((LOVP[]){ __VA_ARGS__ }) / sizeof(LOVP))
 // clang-format off
