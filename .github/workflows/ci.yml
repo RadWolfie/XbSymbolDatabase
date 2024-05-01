@@ -86,7 +86,7 @@ jobs:
           #- -G "Unix Makefiles"
           #- -G Xcode
         #os: [macos-latest, macos-13]
-        builder:
+        builder: # works btw
           - name: macOS x64
             cmake-generator: -G Xcode
             os: macos-13
@@ -132,12 +132,12 @@ jobs:
         # -Werror=dev is used to validate CMakeLists.txt for any faults.
         run: cmake -B build -Werror=dev ${{ matrix.builder.cmake-generator }}
       - name: Build
-        run: cmake --build build --config ${{ matrix.configuration }} ${{ matrix.builder.cmake-build-param }}
+        run: cmake --build build --config ${{ matrix.configuration }} ${{ matrix.cmake-build-param }}
       - name: CTests
         run: ctest --test-dir build --build-config ${{ matrix.configuration }} --verbose
       - name: Copy Files
         if: matrix.configuration == 'Release'
-        run: cmake --install build --config ${{ matrix.configuration }} --prefix upload/${{ matrix.builder.folder }}_${{ matrix.builder.arch }}
+        run: cmake --install build --config ${{ matrix.configuration }} --prefix upload/${{ matrix.folder }}_${{ matrix.builder.arch }}
       - name: Upload Build Artifact
         if: matrix.configuration == 'Release'
         uses: actions/upload-artifact@v3
