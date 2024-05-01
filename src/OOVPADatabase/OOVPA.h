@@ -210,6 +210,9 @@ typedef enum _eDBScanType {
     DB_ST_ALL = DB_ST_MANUAL | DB_ST_AUTO
 } eDBScanType;
 
+// debug: finding the origin of cause for macOS compile issue
+#pragma pack()
+
 // ******************************************************************
 // * OOVPATable
 // ******************************************************************
@@ -222,7 +225,7 @@ typedef struct _OOVPATable {
 } OOVPATable;
 
 // debug: finding the origin of cause for macOS compile issue
-#pragma pack()
+//#pragma pack() // failed
 
 // http://en.cppreference.com/w/cpp/iterator/size
 //#include <iterator>
