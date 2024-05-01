@@ -102,7 +102,13 @@ jobs:
             os: macos-latest
             platform: macOS
             arch: arm64
-        include:
+          - platform: Linux
+            cmake-build-param: -j $(nproc --all)
+            folder: linux
+          - platform: macOS
+            cmake-build-param: -j $(sysctl -n hw.ncpu)
+            folder: macos
+       #include:
           #- os-arch: Windows x86
           #  cmake-generator: -A Win32
           #  platform: Windows
@@ -124,12 +130,6 @@ jobs:
           #  arch: x64
           #  cmake-build-param: -j $(nproc --all)
           #  folder: linux
-          - platform: Linux
-            cmake-build-param: -j $(nproc --all)
-            folder: linux
-          - platform: macOS
-            cmake-build-param: -j $(sysctl -n hw.ncpu)
-            folder: macos
     steps:
       - uses: actions/checkout@v3
       #- name: XCode Selector (for macOS platform)
@@ -140,12 +140,12 @@ jobs:
         # -Werror=dev is used to validate CMakeLists.txt for any faults.
         run: cmake -B build -Werror=dev ${{ matrix.builder.cmake-generator }}
       - name: Build
-        run: cmake --build build --config ${{ matrix.configuration }} ${{ matrix.cmake-build-param }}
+        run: cmake --build build --config ${{ matrix.configuration }} ${{ matrix.builder.cmake-build-param }}
       - name: CTests
         run: ctest --test-dir build --build-config ${{ matrix.configuration }} --verbose
       - name: Copy Files
         if: matrix.configuration == 'Release'
-        run: cmake --install build --config ${{ matrix.configuration }} --prefix upload/${{ matrix.folder }}_${{ matrix.builder.arch }}
+        run: cmake --install build --config ${{ matrix.configuration }} --prefix upload/${{ matrix.builder.folder }}_${{ matrix.builder.arch }}
       - name: Upload Build Artifact
         if: matrix.configuration == 'Release'
         uses: actions/upload-artifact@v3
