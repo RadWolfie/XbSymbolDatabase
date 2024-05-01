@@ -70,13 +70,14 @@ jobs:
           name: changelog
           path: changelog
   build:
-    name: ${{ matrix.platform }} (${{ matrix.arch }}, ${{ matrix.configuration }})
-    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.builder.platform }} (${{ matrix.builder.arch }}, ${{ matrix.configuration }})
+    runs-on: ${{ matrix.builder.os }}
     needs: semver
     if: needs.semver.outputs.do-build == 'true'
     strategy:
       fail-fast: false
       matrix:
+        configuration: [Release] #[Debug, Release]
         #cmake-generator:
           # x86 arch
           #- -A Win32 # Visual Studio (latest IDE)
@@ -85,10 +86,17 @@ jobs:
           #- -G "Unix Makefiles"
           #- -G Xcode
         #os: [macos-latest, macos-13]
-        os-arch:
-          - macOS x64
-          - macOS arm64
-        configuration: [Release] #[Debug, Release]
+        builder:
+          - name: macOS x64
+            cmake-generator: -G Xcode
+            os: macos-13
+            platform: macOS
+            arch: x64
+          - name: macOS arm64
+            cmake-generator: -G Xcode
+            os: macos-latest
+            platform: macOS
+            arch: arm64
         include:
           #- os-arch: Windows x86
           #  cmake-generator: -A Win32
@@ -111,18 +119,7 @@ jobs:
           #  arch: x64
           #  cmake-build-param: -j $(nproc --all)
           #  folder: linux
-          - os-arch: macOS x64
-            cmake-generator: -G Xcode
-            os: macos-13
-            platform: macOS
-            arch: x64
-            cmake-build-param: -j $(sysctl -n hw.ncpu)
-            folder: macos
-          - os-arch: macOS arm64
-            cmake-generator: -G Xcode
-            os: macos-latest
-            platform: macOS
-            arch: arm64
+          - platform: macOS
             cmake-build-param: -j $(sysctl -n hw.ncpu)
             folder: macos
     steps:
@@ -133,14 +130,14 @@ jobs:
       - name: Generate CMake Files
         # NOTES:
         # -Werror=dev is used to validate CMakeLists.txt for any faults.
-        run: cmake -B build -Werror=dev ${{ matrix.cmake-generator }}
+        run: cmake -B build -Werror=dev ${{ matrix.builder.cmake-generator }}
       - name: Build
-        run: cmake --build build --config ${{ matrix.configuration }} ${{ matrix.cmake-build-param }}
+        run: cmake --build build --config ${{ matrix.configuration }} ${{ matrix.builder.cmake-build-param }}
       - name: CTests
         run: ctest --test-dir build --build-config ${{ matrix.configuration }} --verbose
       - name: Copy Files
         if: matrix.configuration == 'Release'
-        run: cmake --install build --config ${{ matrix.configuration }} --prefix upload/${{ matrix.folder }}_${{ matrix.arch }}
+        run: cmake --install build --config ${{ matrix.configuration }} --prefix upload/${{ matrix.builder.folder }}_${{ matrix.builder.arch }}
       - name: Upload Build Artifact
         if: matrix.configuration == 'Release'
         uses: actions/upload-artifact@v3
@@ -150,7 +147,7 @@ jobs:
           path: upload/*/*/*
           if-no-files-found: error
       - name: Upload Misc Artifact
-        if: matrix.cmake-generator == '-G "Unix Makefiles"' && matrix.configuration == 'Release'
+        if: matrix.builder.cmake-generator == '-G "Unix Makefiles"' && matrix.configuration == 'Release'
         uses: actions/upload-artifact@v3
         with:
           name: XbSymbolDatabase
