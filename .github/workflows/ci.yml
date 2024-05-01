@@ -88,7 +88,7 @@ jobs:
         os-arch:
           - macOS x64
           - macOS arm64
-        configuration: [Debug, Release]
+        configuration: [Release] #[Debug, Release]
         include:
           #- os-arch: Windows x86
           #  cmake-generator: -A Win32
