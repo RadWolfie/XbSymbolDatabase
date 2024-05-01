@@ -33,7 +33,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
  # NOTE: llvm Clang contain a fix in https://github.com/llvm/llvm-project/commit/311ff3917827131c20d4b8dac4ce0394a2351b94 commit.
  if(XCODE)
   cmake_policy(SET CMP0077 NEW)
-  #set(XBSDB_BUILD_UNITTEST OFF)
+  set(XBSDB_BUILD_UNITTEST OFF)
  endif()
 else()
  set(XBSDB_DEFAULT_CONFIGS OFF)
