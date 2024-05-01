@@ -34,7 +34,6 @@
 #define STRINGIZEX(x) #x
 #define STRINGIZE(x)  STRINGIZEX(x)
 
-// debug: finding the origin of cause for macOS compile issue
 #pragma pack(1)
 
 // ******************************************************************
@@ -66,9 +65,6 @@ typedef struct _OOVPA {
     // avoid that.)
 } OOVPA;
 
-// debug: finding the origin of cause for macOS compile issue
-//#pragma pack() // works
-
 // {Offset, Value}-pair(s)
 typedef struct _LOVP {
     // Both the Offset and Value are 16-bit to allow for XRefs with a
@@ -89,9 +85,6 @@ typedef struct _LOVP {
         } xref;
     };
 } LOVP;
-
-// debug: finding the origin of cause for macOS compile issue
-//#pragma pack() // works
 
 // Set variable's padding to 0.
 #define VARPADSET 0
@@ -148,9 +141,6 @@ typedef struct _LOOVPA {
 } LOOVPA;
 #pragma warning(pop)
 
-// debug: finding the origin of cause for macOS compile issue
-//#pragma pack() // works
-
 #define COUNTARGS_LOVP(...) (sizeof((LOVP[]){ __VA_ARGS__ }) / sizeof(LOVP))
 // clang-format off
 #define OOVPA_SIG_MATCH(...) MSVC_EXPAND(COUNTARGS_LOVP(__VA_ARGS__)), { __VA_ARGS__ } }
@@ -188,17 +178,12 @@ typedef struct _LOOVPA {
 #define OOVPA_END }
 // clang-format on
 
-// debug: finding the origin of cause for macOS compile issue
-#pragma pack() // works
-
+#pragma pack() // require restore pack for AppleClang to build
 typedef struct _OOVPARevision {
     OOVPA* Oovpa;
     unsigned short Version; // : 13; // 2^13 = 8192, enough to store lowest and highest possible Library Version number in
 } OOVPARevision;
-
-// debug: finding the origin of cause for macOS compile issue
-//#pragma pack() // failed
-#pragma pack(1)
+#pragma pack(1) // require restore pack for AppleClang to build
 
 #define COUNTARGS_USHORT(...) (sizeof((unsigned short[]){ __VA_ARGS__ }) / sizeof(unsigned short))
 
@@ -210,12 +195,10 @@ typedef enum _eDBScanType {
     DB_ST_ALL = DB_ST_MANUAL | DB_ST_AUTO
 } eDBScanType;
 
-// debug: finding the origin of cause for macOS compile issue
-#pragma pack()
-
 // ******************************************************************
 // * OOVPATable
 // ******************************************************************
+#pragma pack() // require restore pack for AppleClang to build
 typedef struct _OOVPATable {
     uint16_t xref;
     char* szFuncName;
@@ -223,9 +206,7 @@ typedef struct _OOVPATable {
     unsigned count;
     OOVPARevision* revisions;
 } OOVPATable;
-
-// debug: finding the origin of cause for macOS compile issue
-//#pragma pack() // failed
+#pragma pack(1) // require restore pack for AppleClang to build
 
 // http://en.cppreference.com/w/cpp/iterator/size
 //#include <iterator>
@@ -332,7 +313,6 @@ typedef struct _OOVPATable {
                                  OV_BYTES_8, OV_BYTES_7, OV_BYTES_6, OV_BYTES_5, OV_BYTES_4, \
                                  OV_BYTES_3, OV_BYTES_2, OV_BYTES_1, OV_BYTES_0)(Offset, __VA_ARGS__))
 
-// disable pack to check if arm64 will build/link now
-//#pragma pack()
+#pragma pack()
 
 #endif
