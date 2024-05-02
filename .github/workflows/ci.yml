@@ -145,7 +145,7 @@ jobs:
         if: matrix.configuration == 'Release'
         uses: actions/upload-artifact@v4
         with:
-          name: XbSymbolDatabase
+          name: XbSymbolDatabase-${{ matrix.builder.folder }}_${{ matrix.builder.arch }}
           # roughly translate to upload/<platform_arch>/<bin | lib | include>/<anything in here and after>
           path: upload/*/*/*
           if-no-files-found: error
@@ -153,8 +153,19 @@ jobs:
         if: matrix.builder.cmake-generator == '-G "Unix Makefiles"' && matrix.builder.configuration == 'Release'
         uses: actions/upload-artifact@v4
         with:
-          name: XbSymbolDatabase
+          name: XbSymbolDatabase-LICENSE-README
           path: |
             README.md
             LICENSE
           if-no-files-found: error
+  merge:
+    name: Merge Artifacts
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ !cancelled() }}
+    steps:
+      - uses: actions/upload-artifact/merge@v4
+        with:
+          name: XbSymbolDatabase
+          pattern: XbSymbolDatabase-*
+          delete-merged: true
