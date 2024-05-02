@@ -35,7 +35,7 @@ jobs:
       do-build: ${{ steps.build-cond.outputs.do-build }}
       do-release: ${{ github.repository == env.repo_default }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: RadWolfie/Semantic-Version-Action@main
@@ -65,11 +65,12 @@ jobs:
       # NOTE: Require to reduce workload from CI service from fetch whole git content.
       - name: Upload Changelog
         if: steps.build-cond.outputs.do-build == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: changelog
           path: changelog
   matrix_setup:
+    name: Setup Builders
     runs-on: ubuntu-latest
     outputs:
       builder: ${{steps.set-builder.outputs.result}}
@@ -128,7 +129,7 @@ jobs:
         configuration: [Release]
         builder: ${{fromJSON(needs.matrix_setup.outputs.builder)}}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Generate CMake Files
         # NOTES:
         # -Werror=dev is used to validate CMakeLists.txt for any faults.
@@ -142,7 +143,7 @@ jobs:
         run: cmake --install build --config ${{ matrix.configuration }} --prefix upload/${{ matrix.builder.folder }}_${{ matrix.builder.arch }}
       - name: Upload Build Artifact
         if: matrix.configuration == 'Release'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: XbSymbolDatabase
           # roughly translate to upload/<platform_arch>/<bin | lib | include>/<anything in here and after>
@@ -150,7 +151,7 @@ jobs:
           if-no-files-found: error
       - name: Upload Misc Artifact
         if: matrix.builder.cmake-generator == '-G "Unix Makefiles"' && matrix.builder.configuration == 'Release'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: XbSymbolDatabase
           path: |
