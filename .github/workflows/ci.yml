@@ -79,35 +79,36 @@ jobs:
         with:
           script: |
             const platforms = [
-                //{"platform": "Windows", "folder": "win", "cmake-build-param": "-j $env:NUMBER_OF_PROCESSORS"},
-                //{"platform": "Linux", "folder": "linux", "cmake-build-param": "-j $(nproc --all)", "cmake-generator": "-G \"Unix Makefiles\""},
+                {"platform": "Windows", "folder": "win", "cmake-build-param": "-j $env:NUMBER_OF_PROCESSORS"},
+                {"platform": "Linux", "folder": "linux", "cmake-build-param": "-j $(nproc --all)", "cmake-generator": "-G \"Unix Makefiles\""},
                 {"platform": "macOS", "folder": "macos", "cmake-build-param": "-j $(sysctl -n hw.ncpu)", "cmake-generator": "-G Xcode"}
             ];
             let builder = [];
             for (let build of platforms.values()) {
               if (build.platform === "Windows") {
+                // always use the latest os
                 build["os"] = "windows-latest";
-                //
-                // create x86 and x64 builds
+                // create x86 build
                 build["arch"] = "x86";
                 build["cmake-generator"] = "-A Win32";
                 builder.push(Object.assign({}, build));
-                //
+                // create x64 build
                 build["arch"] = "x64";
                 build["cmake-generator"] = "-A x64";
                 builder.push(Object.assign({}, build));
               }
               if (build.platform === "Linux") {
+                // no other variant needed at this time
                 build["os"] = "ubuntu-latest";
                 build["arch"] = "x64";
                 builder.push(Object.assign({}, build));
               }
               if (build.platform === "macOS") {
-                // create x64 and amd64 builds
+                // create x64 build (only on macos-13)
                 build["os"] = "macos-13";
                 build["arch"] = "x64";
                 builder.push(Object.assign({}, build));
-                //
+                // create amd64 build (only on macos-14 and later)
                 build["os"] = "macos-latest";
                 build["arch"] = "amd64";
                 builder.push(Object.assign({}, build));
