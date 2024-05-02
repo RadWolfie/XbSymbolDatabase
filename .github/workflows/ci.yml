@@ -69,7 +69,7 @@ jobs:
         with:
           name: changelog
           path: changelog
-  matrix-setup:
+  matrix_setup:
     runs-on: ubuntu-latest
     outputs:
       matrix: $${{ steps.set-matrix.outputs.result }}
@@ -118,12 +118,12 @@ jobs:
   build:
     name: ${{ matrix.builder.platform }} (${{ matrix.builder.arch }}, ${{ matrix.configuration }})
     runs-on: ${{ matrix.builder.os }}
-    needs: [semver, matrix-setup]
+    needs: [semver, matrix_setup]
     if: needs.semver.outputs.do-build == 'true'
     strategy:
       fail-fast: false
       matrix:
-        builder: ${{ fromJSON(needs.matrix-setup.outputs.matrix }}
+        builder: ${{ fromJSON(needs.matrix_setup.outputs.matrix }}
         #configuration: [Debug, Release]
         configuration: [Release]
     steps:
