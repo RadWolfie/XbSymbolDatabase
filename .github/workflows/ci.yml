@@ -123,7 +123,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        builder: ${{ fromJson(needs.matrix_setup.outputs.matrix) }}
+        #builder: ${{ fromJSON(needs.matrix_setup.outputs.matrix) }}
+        builder:
+          - {"platform":"macOS","folder":"macos","cmake-build-param":"-j $(sysctl -n hw.ncpu)","cmake-generator":"-G Xcode","os":"macos-13","arch":"x64"}
+          - {"platform":"macOS","folder":"macos","cmake-build-param":"-j $(sysctl -n hw.ncpu)","cmake-generator":"-G Xcode","os":"macos-latest","arch":"amd64"}
         #configuration: [Debug, Release]
         configuration: [Release]
     steps:
