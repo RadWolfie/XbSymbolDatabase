@@ -118,7 +118,7 @@ jobs:
             var ARRAY_STRING = "Windows,Linux,macOS";
             var objects = ARRAY_STRING
               .split(',')
-              .map(value => ({platform: value, arch: "dummy", os: "ubuntu-latest}) );
+              .map(value => ({platform: value, arch: "dummy", os: "ubuntu-latest"}) );
             // Log to console
             console.log(objects);
             return JSON.stringify(objects);
