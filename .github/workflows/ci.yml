@@ -150,7 +150,7 @@ jobs:
           path: upload/*/*/*
           if-no-files-found: error
       - name: Upload Misc Artifact
-        if: matrix.builder.cmake-generator == '-G "Unix Makefiles"' && matrix.builder.configuration == 'Release'
+        if: matrix.builder.cmake-generator == '-G "Unix Makefiles"' && matrix.configuration == 'Release'
         uses: actions/upload-artifact@v4
         with:
           name: XbSymbolDatabase-LICENSE-README
