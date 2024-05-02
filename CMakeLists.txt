@@ -2,6 +2,7 @@
 #
 cmake_minimum_required(VERSION 3.10.2)
 
+
 project(XbSymbolDatabase)
 
 # Enforce warnings as errors to verify projects are in sync and doesn't have hidden warnings.
