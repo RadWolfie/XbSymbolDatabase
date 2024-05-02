@@ -114,7 +114,14 @@ jobs:
               }
             }
             console.log(builder);
-            return JSON.stringify(builder)
+            //return JSON.stringify(builder);
+            var ARRAY_STRING = "Windows,Linux,macOS";
+            var objects = ARRAY_STRING
+              .split(',')
+              .map(value => ({platform: value, arch: "dummy"}) );
+            // Log to console
+            console.log(objects);
+            return JSON.stringify(objects);
   build:
     name: ${{ matrix.builder.platform }} (${{ matrix.builder.arch }}, ${{ matrix.configuration }})
     runs-on: ${{ matrix.builder.os }}
