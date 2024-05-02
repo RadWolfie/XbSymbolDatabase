@@ -72,7 +72,7 @@ jobs:
   matrix_setup:
     runs-on: ubuntu-latest
     outputs:
-      builder: ${{ steps.set-builder.outputs.result }}
+      builder: ${{steps.set-builder.outputs.result}}
     steps:
       - uses: actions/github-script@v7
         id: set-builder
@@ -114,17 +114,7 @@ jobs:
               }
             }
             console.log(builder);
-            var ARRAY_STRING = "Windows,Linux,macOS";
-            var objects = ARRAY_STRING
-              .split(',')
-              .map(value => ({platform: value, varName2: "value"}) );
-            // Log to console
-            console.log(objects);
             return JSON.stringify(builder)
-      - name: Test output
-        run: echo ${{ fromJSON(steps.set-builder.outputs.result) }}
-      - name: Test output 2
-        run: echo ${{ fromJSON(needs.matrix_setup.outputs.matrix) }}
   build:
     name: ${{ matrix.builder.platform }} (${{ matrix.builder.arch }}, ${{ matrix.configuration }})
     runs-on: ${{ matrix.builder.os }}
@@ -133,10 +123,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        builder: ${{ fromJSON(needs.matrix_setup.outputs.builder) }}
-        #builder: [{"platform":"macOS","folder":"macos","cmake-build-param":"-j $(sysctl -n hw.ncpu)","cmake-generator":"-G Xcode","os":"macos-13","arch":"x64"},{"platform":"macOS","folder":"macos","cmake-build-param":"-j $(sysctl -n hw.ncpu)","cmake-generator":"-G Xcode","os":"macos-latest","arch":"amd64"}]
         #configuration: [Debug, Release]
         configuration: [Release]
+        builder: ${{fromJSON(needs.matrix_setup.outputs.builder)}}
     steps:
       - uses: actions/checkout@v3
       - name: Generate CMake Files
