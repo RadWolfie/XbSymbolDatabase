@@ -69,72 +69,65 @@ jobs:
         with:
           name: changelog
           path: changelog
+  matrix-setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: $${{ steps.set-matrix.outputs.result }}
+    steps:
+      - uses: actions/github-script@v7
+        id: set-matrix
+        with:
+          script: |
+            const platforms = [
+                //{"platform": "Windows", "folder": "win", "cmake-build-param": "-j $env:NUMBER_OF_PROCESSORS"},
+                //{"platform": "Linux", "folder": "linux", "cmake-build-param": "-j $(nproc --all)", "cmake-generator": "-G \"Unix Makefiles\""},
+                {"platform": "macOS", "folder": "macos", "cmake-build-param": "-j $(sysctl -n hw.ncpu)", "cmake-generator": "-G Xcode"}
+            ];
+            let builder = [];
+            for (let build of platforms.values()) {
+              if (build.platform === "Windows") {
+                build["os"] = "windows-latest";
+                //
+                // create x86 and x64 builds
+                build["arch"] = "x86";
+                build["cmake-generator"] = "-A Win32";
+                builder.push(Object.assign({}, build));
+                //
+                build["arch"] = "x64";
+                build["cmake-generator"] = "-A x64";
+                builder.push(Object.assign({}, build));
+              }
+              if (build.platform === "Linux") {
+                build["os"] = "ubuntu-latest";
+                build["arch"] = "x64";
+                builder.push(Object.assign({}, build));
+              }
+              if (build.platform === "macOS") {
+                // create x64 and amd64 builds
+                build["os"] = "macos-13";
+                build["arch"] = "x64";
+                builder.push(Object.assign({}, build));
+                //
+                build["os"] = "macos-latest";
+                build["arch"] = "amd64";
+                builder.push(Object.assign({}, build));
+              }
+            }
+            console.log(builder);
+            return JSON.stringify(builder)
   build:
     name: ${{ matrix.builder.platform }} (${{ matrix.builder.arch }}, ${{ matrix.configuration }})
     runs-on: ${{ matrix.builder.os }}
-    needs: semver
+    needs: [semver, matrix-setup]
     if: needs.semver.outputs.do-build == 'true'
     strategy:
       fail-fast: false
       matrix:
-        configuration: [Release] #[Debug, Release]
-        #cmake-generator:
-          # x86 arch
-          #- -A Win32 # Visual Studio (latest IDE)
-          # x64 arch
-          #- -A x64 # Visual Studio (latest IDE)
-          #- -G "Unix Makefiles"
-          #- -G Xcode
-        #os: [macos-latest, macos-13]
-        builder: # works btw
-          - name: Ubuntu x64
-            cmake-generator: -G "Unix Makefiles"
-            platform: Linux
-            os: ubuntu-latest
-            arch: x64
-          - name: macOS x64
-            cmake-generator: -G Xcode
-            os: macos-13
-            platform: macOS
-            arch: x64
-          - name: macOS arm64
-            cmake-generator: -G Xcode
-            os: macos-latest
-            platform: macOS
-            arch: arm64
-          - platform: Linux
-            cmake-build-param: -j $(nproc --all)
-            folder: linux
-          - platform: macOS
-            cmake-build-param: -j $(sysctl -n hw.ncpu)
-            folder: macos
-       #include:
-          #- os-arch: Windows x86
-          #  cmake-generator: -A Win32
-          #  platform: Windows
-          #  os: windows-latest
-          #  arch: x86
-          #  cmake-build-param: -j $env:NUMBER_OF_PROCESSORS
-          #  folder: win
-          #- os-arch: Windows x64
-          #  cmake-generator: -A x64
-          #  platform: Windows
-          #  os: windows-latest
-          #  arch: x64
-          #  cmake-build-param: -j $env:NUMBER_OF_PROCESSORS
-          #  folder: win
-          #- os-arch: Ubuntu
-          #  cmake-generator: -G "Unix Makefiles"
-          #  platform: Linux
-          #  os: ubuntu-latest
-          #  arch: x64
-          #  cmake-build-param: -j $(nproc --all)
-          #  folder: linux
+        builder: ${{ fromJSON(needs.matrix-setup.outputs.matrix }}
+        #configuration: [Debug, Release]
+        configuration: [Release]
     steps:
       - uses: actions/checkout@v3
-      #- name: XCode Selector (for macOS platform)
-      #  if: runner.os == 'macOS'
-      #  run: sudo xcode-select -s "/Applications/Xcode_14.3.1.app"
       - name: Generate CMake Files
         # NOTES:
         # -Werror=dev is used to validate CMakeLists.txt for any faults.
@@ -155,7 +148,7 @@ jobs:
           path: upload/*/*/*
           if-no-files-found: error
       - name: Upload Misc Artifact
-        if: matrix.builder.cmake-generator == '-G "Unix Makefiles"' && matrix.configuration == 'Release'
+        if: matrix.builder.cmake-generator == '-G "Unix Makefiles"' && matrix.builder.configuration == 'Release'
         uses: actions/upload-artifact@v3
         with:
           name: XbSymbolDatabase
