@@ -115,6 +115,10 @@ jobs:
             }
             console.log(builder);
             return JSON.stringify(builder)
+      - name: Test output
+        run: echo ${{ fromJSON(steps.set-matrix.outputs.result) }}
+      - name: Test output 2
+        run: echo ${{ fromJSON(needs.matrix_setup.outputs.matrix) }}
   build:
     name: ${{ matrix.builder.platform }} (${{ matrix.builder.arch }}, ${{ matrix.configuration }})
     runs-on: ${{ matrix.builder.os }}
@@ -123,8 +127,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        #builder: ${{ fromJSON(needs.matrix_setup.outputs.matrix) }}
-        builder: [{"platform":"macOS","folder":"macos","cmake-build-param":"-j $(sysctl -n hw.ncpu)","cmake-generator":"-G Xcode","os":"macos-13","arch":"x64"},{"platform":"macOS","folder":"macos","cmake-build-param":"-j $(sysctl -n hw.ncpu)","cmake-generator":"-G Xcode","os":"macos-latest","arch":"amd64"}]
+        builder: ${{ fromJSON(needs.matrix_setup.outputs.matrix) }}
+        #builder: [{"platform":"macOS","folder":"macos","cmake-build-param":"-j $(sysctl -n hw.ncpu)","cmake-generator":"-G Xcode","os":"macos-13","arch":"x64"},{"platform":"macOS","folder":"macos","cmake-build-param":"-j $(sysctl -n hw.ncpu)","cmake-generator":"-G Xcode","os":"macos-latest","arch":"amd64"}]
         #configuration: [Debug, Release]
         configuration: [Release]
     steps:
